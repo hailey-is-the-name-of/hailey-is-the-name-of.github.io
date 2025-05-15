@@ -225,17 +225,20 @@
   </h1>
 
   <!-- 일정 부분: 여기만 수정하면 돼 -->
-  <div class="schedule">
-    <div class="schedule-header">&lt; 대구시당 1호차 &gt;</div>
-    <div class="schedule-date">5월 15일(목) 유세 일정</div>
-    <ul class="schedule-list">
-      <li><span class="time">07:00</span>본리네거리(달서구본동)</li>
-      <li><span class="time">10:30</span>본리동 대단지 아파트</li>
-      <li><span class="time">14:00</span>서부정류장</li>
-            <li><span class="time">17:30</span>죽전네거리</li>
-      <li><span class="time">19:00</span>상인역</li>
-    </ul>
-  </div>
+<!-- ===== 여기서부터 API 호출 스크립트 ===== -->
+
+
+
+
+<!-- ★ 일정 섹션 – 초기 내용은 있어도 되고, 위처럼 비워 둬도 됨 ★ -->
+<div class="schedule">
+  <div class="schedule-header">&lt; 대구시당 1호차 &gt;</div>
+  <div class="schedule-date">로딩 중…</div>
+  <ul class="schedule-list">
+    <!-- JS가 여기를 덮어쓴다 -->
+  </ul>
+</div>
+
 
   <!-- 기존 메뉴 버튼 -->
   <div class="grid">
@@ -300,5 +303,41 @@
       document.getElementById('visionButton').style.display = 'none';
     });
   </script>
+
+   <script>
+(async () => {
+  const API_URL = "https://api.bluenew.life/api/schedule";
+
+  try {
+    const res   = await fetch(API_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("status " + res.status);
+    const data  = await res.json();
+
+    // 제목·날짜
+    document.querySelector(".schedule-header").innerHTML =
+      `&lt; ${data.title} &gt;`;
+    document.querySelector(".schedule-date").textContent =
+      formatDate(data.date);
+
+    // 리스트
+    const ul = document.querySelector(".schedule-list");
+    ul.innerHTML = "";
+    data.items.forEach(({ time, text }) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="time">${time}</span>${text}`;
+      ul.appendChild(li);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  function formatDate(str) {
+    if (!str) return "";
+    const dt   = new Date(str + "T00:00:00");
+    const yoil = "일월화수목금토"[dt.getDay()];
+    return `${dt.getMonth() + 1}월 ${dt.getDate()}일(${yoil}) 유세 일정`;
+  }
+})();
+</script>
 </body>
 </html>
