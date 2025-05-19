@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>19대/20대 대선 간단 통계</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background: #f8fafd;
+      color: #222;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #222;
+      text-align: center;
+    }
+    .vote-table {
+      width: 100%;
+      max-width: 960px;
+      margin: 2rem auto;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: center;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+    .vote-table th {
+      background-color: #e0f4ff;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+    }
+    .vote-table td {
+      padding: 0.8rem;
+      border: 1px solid #eee;
+    }
+    .vote-table tr:nth-child(even) {
+      background-color: #f9fcff;
+    }
+    section {
+      max-width: 960px;
+      margin: 3rem auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+    }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background: #f8fafd;
+      color: #222;
+      line-height: 1.6;
+    }
+    .topbar {
+      background: #e0f2ff;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: #007acc;
+      text-decoration: none;
+    }
+        header {
+      padding: 2rem 1rem 1.5rem;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      color: #007acc;
+      margin-bottom: 0.5rem;
+    }
+    header h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #555;
+    }
+
+        #kakao-share-btn{
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      background: #FEE500;
+      border: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,.25);
+      cursor: pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #kakao-share-btn img{
+      width:28px;
+      height:28px;
+    }
+  </style>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+    Kakao.init('37ea916b7f1ab457b58119c60ec4052a');
+    function shareKakao() {
+      Kakao.Link.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '대구 득표율 비교',
+          description: '19대·20대 대구지역 더불어민주당 득표율 한눈에 보기',
+          imageUrl: 'https://theminjoodaegu.co.kr/share_thumb.png',
+          link: { mobileWebUrl: 'https://bluenew.life/stats', webUrl: 'https://bluenew.life/stats/' }
+        },
+        buttons: [{ title: '보러가기', link: { mobileWebUrl: 'https://bluenew.life/stats', webUrl: 'https://bluenew.life/stats' } }]
+      });
+    }
+  </script>
+</head>
+<body>
+
+<div class="topbar">
+<a href="https://bluenew.life">← 메인페이지로 돌아가기</a>
+</div>
+<header>
+  <h2>19대, 20대 대통령 선거<br/>대구지역 더불어민주당 득표율 비교</h2>
+</header>
+
+
+<section>
+  <h2>더불어민주당 득표율 요약</h2>
+  <table style="margin: 0 auto; font-size: 1.1rem; border-collapse: collapse; border: 1px solid #ddd; border-radius: 12px; overflow: hidden;">
+    <tr style="background-color: #f0faff;">
+      <th style="padding: 0.8rem 1.2rem;">19대</th>
+      <th style="padding: 0.8rem 1.2rem;">20대</th>
+    </tr>
+    <tr>
+      <td style="padding: 0.8rem 1.2rem; font-weight: bold; color: #007acc;">21.76%</td>
+      <td style="padding: 0.8rem 1.2rem; font-weight: bold; color: #007acc;">21.60%</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>📊 지역별 득표율 비교 (19대 vs 20대)</h2>
+  <div id="voteRateChart" style="height: 400px;"></div>
+</section>
+
+<section>
+  <h2>🧮 지역별 득표수 비교 (19대 vs 20대)</h2>
+  <div id="voteCountChart" style="height: 400px;"></div>
+</section>
+
+<section><h2>🗳 19대 대선 지역구별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>서구</td><td>17.32</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>달성군</td><td>23.13</td></tr></tbody></table></section><section><h2>🏅 19대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.13</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>서구</td><td>17.32</td></tr></tbody></table></section><section><h2>🗳 20대 대선 지역구별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>21.47</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>서구</td><td>17.31</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>달성군</td><td>23.58</td></tr></tbody></table></section><section><h2>🏅 20대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.58</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>중구</td><td>21.47</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>서구</td><td>17.31</td></tr></tbody></table></section>
+<section>
+  <h2>지역별 득표 데이터 상세 비교</h2>
+  <table class="vote-table">
+    <thead>
+      <tr>
+        <th>지역</th>
+        <th>19대 득표수</th>
+        <th>19대 득표율(%)</th>
+        <th>20대 득표수</th>
+        <th>20대 득표율(%)</th>
+        <th>득표수 변화</th>
+        <th>득표율 변화(%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>중구</td><td>11,477</td><td>16.67</td><td>10,913</td><td>16.54</td><td>-564</td><td>-0.13</td></tr>
+      <tr><td>동구</td><td>47,350</td><td>16.09</td><td>52,170</td><td>17.55</td><td>4,820</td><td>1.46</td></tr>
+      <tr><td>서구</td><td>22,004</td><td>12.69</td><td>19,516</td><td>6.56</td><td>-2,488</td><td>-6.13</td></tr>
+      <tr><td>남구</td><td>19,862</td><td>14.58</td><td>19,765</td><td>15.24</td><td>-97</td><td>0.66</td></tr>
+      <tr><td>북구</td><td>62,526</td><td>17.58</td><td>66,469</td><td>17.81</td><td>3,943</td><td>0.23</td></tr>
+      <tr><td>수성구</td><td>64,922</td><td>18.22</td><td>59,379</td><td>16.97</td><td>-5,543</td><td>-1.25</td></tr>
+      <tr><td>달서구</td><td>82,726</td><td>17.27</td><td>77,951</td><td>16.70</td><td>-4,775</td><td>-0.57</td></tr>
+      <tr><td>달성군</td><td>31,753</td><td>17.70</td><td>38,882</td><td>18.16</td><td>7,129</td><td>0.46</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+const regions = ["중구", "동구", "서구", "남구", "북구", "수성구", "달서구", "달성군"];
+const rate19 = [16.67, 16.09, 12.69, 14.58, 17.58, 18.22, 17.27, 17.70];
+const rate20 = [16.54, 17.55, 6.56, 15.24, 17.81, 16.97, 16.70, 18.16];
+const count19 = [11477, 47350, 22004, 19862, 62526, 64922, 82726, 31753];
+const count20 = [10913, 52170, 19516, 19765, 66469, 59379, 77951, 38882];
+
+const voteRateChart = echarts.init(document.getElementById('voteRateChart'));
+voteRateChart.setOption({
+  tooltip: { trigger: 'axis' },
+  legend: { data: ['19대', '20대'] },
+  xAxis: { type: 'category', data: regions },
+  yAxis: { type: 'value', name: '득표율(%)' },
+  series: [
+    { name: '19대', type: 'bar', data: rate19 },
+    { name: '20대', type: 'bar', data: rate20 }
+  ]
+});
+
+const voteCountChart = echarts.init(document.getElementById('voteCountChart'));
+voteCountChart.setOption({
+  tooltip: { trigger: 'axis' },
+  legend: { data: ['19대', '20대'] },
+  xAxis: { type: 'category', data: regions },
+  yAxis: { type: 'value', name: '득표수' },
+  series: [
+    { name: '19대', type: 'bar', data: count19 },
+    { name: '20대', type: 'bar', data: count20 }
+  ]
+});
+</script>
+
+</body>
+</html>
