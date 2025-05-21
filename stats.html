@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>19대/20대 대선 간단 통계</title>
+  <title>구·군별 득표율 요약</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
@@ -117,8 +117,8 @@
       Kakao.Link.sendDefault({
         objectType: 'feed',
         content: {
-          title: '대구 득표율 비교',
-          description: '19대·20대 대구지역 더불어민주당 득표율 한눈에 보기',
+          title: '대구 구·군별 득표율 비교',
+          description: '19대·20대 대구지역 더불어민주당 구·군별 득표율 한눈에 보기',
           imageUrl: 'https://theminjoodaegu.co.kr/share_thumb.png',
           link: { mobileWebUrl: 'https://bluenew.life/stats', webUrl: 'https://bluenew.life/stats/' }
         },
@@ -133,12 +133,13 @@
 <a href="https://bluenew.life">← 메인페이지로 돌아가기</a>
 </div>
 <header>
-  <h2>19대, 20대 대통령 선거<br/>대구지역 더불어민주당 득표율 비교</h2>
+  <h2>19대, 20대 대통령 선거</h2>h2>
+    <h1>대구지역 구·군별 더불어민주당 득표율 요약</h1>
 </header>
 
 
 <section>
-  <h2>더불어민주당 득표율 요약</h2>
+  <h2>더불어민주당 구·군별 득표율 요약</h2>
   <table style="margin: 0 auto; font-size: 1.1rem; border-collapse: collapse; border: 1px solid #ddd; border-radius: 12px; overflow: hidden;">
     <tr style="background-color: #f0faff;">
       <th style="padding: 0.8rem 1.2rem;">19대</th>
@@ -152,20 +153,20 @@
 </section>
 
 <section>
-  <h2>📊 지역별 득표율 비교 (19대 vs 20대)</h2>
+  <h2>📊 구·군별 득표율 비교 (19대 vs 20대)</h2>
   <div id="voteRateChart" style="height: 400px;"></div>
 </section>
 
 <section>
-  <h2>🧮 지역별 득표수 비교 (19대 vs 20대)</h2>
+  <h2>🧮 구·군별 득표수 비교 (19대 vs 20대)</h2>
   <div id="voteCountChart" style="height: 400px;"></div>
 </section>
 
-<section><h2>🗳 19대 대선 지역구별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>서구</td><td>17.32</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>달성군</td><td>23.13</td></tr></tbody></table></section><section><h2>🏅 19대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.13</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>서구</td><td>17.32</td></tr></tbody></table></section><section><h2>🗳 20대 대선 지역구별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>21.47</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>서구</td><td>17.31</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>달성군</td><td>23.58</td></tr></tbody></table></section><section><h2>🏅 20대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.58</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>중구</td><td>21.47</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>서구</td><td>17.31</td></tr></tbody></table></section>
+<section><h2>🗳 19대 대선 구·군별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>서구</td><td>17.32</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>달성군</td><td>23.13</td></tr></tbody></table></section><section><h2>🏅 19대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.13</td></tr><tr><td>수성구</td><td>22.82</td></tr><tr><td>북구</td><td>22.69</td></tr><tr><td>달서구</td><td>22.17</td></tr><tr><td>중구</td><td>22.09</td></tr><tr><td>동구</td><td>20.99</td></tr><tr><td>남구</td><td>19.94</td></tr><tr><td>서구</td><td>17.32</td></tr></tbody></table></section><section><h2>🗳 20대 대선 지역구별 득표율 (순서순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>중구</td><td>21.47</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>서구</td><td>17.31</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>달성군</td><td>23.58</td></tr></tbody></table></section><section><h2>🏅 20대 대선 지역구별 득표율 (순위순)</h2><table class="vote-table"><thead><tr><th>지역</th><th>득표율(%)</th></tr></thead><tbody><tr><td>달성군</td><td>23.58</td></tr><tr><td>북구</td><td>22.75</td></tr><tr><td>동구</td><td>22.60</td></tr><tr><td>중구</td><td>21.47</td></tr><tr><td>달서구</td><td>21.34</td></tr><tr><td>수성구</td><td>20.95</td></tr><tr><td>남구</td><td>20.39</td></tr><tr><td>서구</td><td>17.31</td></tr></tbody></table></section>
 
 
 <section>
-  <h2>지역별 득표 데이터 상세 비교</h2>
+  <h2>구·군별 득표 데이터 상세 비교</h2>
   <table class="vote-table">
     <thead>
       <tr>
