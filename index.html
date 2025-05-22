@@ -268,10 +268,152 @@
     }
 
 
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 340px;
+      max-width: 90%;
+      background: linear-gradient(135deg, #f0f4ff, #ffffff);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      padding: 20px 22px;
+      z-index: 9999;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .popup.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .popup h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #222;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .popup p {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .popup .link-btn {
+      display: block;
+      text-align: center;
+      margin: 16px auto;
+      padding: 12px 18px;
+      background-color: #015DA9;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      width: fit-content;
+    }
+
+    .popup .link-btn:hover {
+      background-color: #01488a;
+    }
+
+    .popup .popup-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .popup-buttons button {
+      flex: 1;
+      margin: 0 4px;
+      padding: 8px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .popup-buttons .close-btn {
+      background-color: #ccc;
+      color: #222;
+    }
+
+    .popup-buttons .hide-week-btn {
+      background-color: #015DA9;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .popup {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: 22px 20px;
+      }
+
+      .popup .link-btn {
+        font-size: 1.05rem;
+      }
+    }
 
   </style>
 </head>
 <body>
+
+
+
+<div id="popup" class="popup">
+  <h3>우리 동네는 내가 살린다!<br>지역화폐 사용 챌린지</h3>
+  <p>“이재명의 약속, 지역경제의 숨통!<br>지역화폐로 응원하자”</p>
+  <a href="https://bluenews.life/iamsharp" class="link-btn" target="_blank">자세히 보기</a>
+  <div class="popup-buttons">
+    <button class="hide-week-btn" onclick="hideForAWeek()">일주일간 다시보지 않기</button>
+    <button class="close-btn" onclick="closePopup()">닫기</button>
+  </div>
+</div>
+
+<script>
+  const POPUP_KEY = 'popup_hide_until';
+
+  function shouldShowPopup() {
+    const hideUntil = localStorage.getItem(POPUP_KEY);
+    if (!hideUntil) return true;
+    return new Date().getTime() > parseInt(hideUntil);
+  }
+
+  function showPopup() {
+    if (shouldShowPopup()) {
+      const popup = document.getElementById('popup');
+      popup.classList.add('show');
+    }
+  }
+
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  function hideForAWeek() {
+    const oneWeekLater = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+    localStorage.setItem(POPUP_KEY, oneWeekLater.toString());
+    closePopup();
+  }
+
+  window.onload = () => setTimeout(showPopup, 100);  // 살짝 늦게 띄우기
+</script>
+
+
+
   <h1>
     <span class="heart">♥♥♥</span>대구시당 알리미<span class="heart">♥♥♥</span>
   </h1>
