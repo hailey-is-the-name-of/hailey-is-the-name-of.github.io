@@ -196,12 +196,41 @@
 
     footer{margin-top:40px;text-align:center;}
     footer img{width:150px;height:auto;}
+
+
+    .dday-box {
+      background-color: #015DA9;
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+    .dday-prefix,
+    .dday-number,
+    .dday-suffix {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .dday-time {
+      font-size: 0.7rem;
+    }
+    @media (max-width: 600px) {
+      .dday-box { width: 90vw; }
+    }
+
   </style>
 </head>
 
 <body>
   <div id="popup-container">
     <!-- 텍스트 팝업 -->
+
+
     <div id="popup" class="popup text">
       <h3>우리 동네는 내가 살린다!<br>지역화폐 사용 챌린지</h3>
       <p>“이재명의 약속, 지역경제의 숨통!<br>지역화폐로 응원하자”</p>
@@ -223,6 +252,15 @@
       </div>
     </div>
   </div>
+  <!-- ====== 여기에 D-Day 박스 추가 ====== -->
+  <div class="dday-box">
+    <span class="dday-prefix">6월 3일 대통령선거까지 D-</span>
+    <span class="dday-number" id="ddayNumber">100</span>
+    <span class="dday-suffix">일</span>
+    <span id="ddaytime"> 투표종료까지 남은시간 : </span>
+    <span class="dday-time" id="ddayTime">00시간 00분 00초</span>
+  </div>
+
 
   <h1><span class="heart">♥♥♥</span>대구시당 알리미<span class="heart">♥♥♥</span></h1>
 
@@ -235,6 +273,8 @@
 
   <!-- ====== 링크 카드 ====== -->
   <div class="grid">
+        <div class="card"><a href="https://bluenew.life/2ndlie" target="_blank">2차 토론회 후보들의 거짓말 </a></div>
+
     <div class="card"><a href="https://bluenew.life/policy" target="_blank">이재명후보 정책안내 페이지</a></div>
     <div class="card"><a href="https://bluenew.life/card" target="_blank">#이재명 말모이</a></div>
     <div class="card"><a href="https://poll.bluenew.life" target="_blank">여론조사 추이 (beta)</a></div>
@@ -308,6 +348,48 @@
         return `${dt.getMonth()+1}월 ${dt.getDate()}일(${yoil}) 유세 일정`;
       }
     })();
+  </script>
+
+  <!-- ====== D-Day 애니메이션 & 실시간 카운트다운 ====== -->
+  <script>
+    function initDday() {
+      // 목표일 설정 (2025-06-03 00:00:00) 및 타임업 (2025-06-03 20:00:00)
+      const targetDate = new Date('2025-06-03T00:00:00');
+      const targetTime = new Date('2025-06-03T20:00:00');
+
+      const dayElem = document.getElementById('ddayNumber');
+      const timeElem = document.getElementById('ddayTime');
+
+      // 남은 일수 계산 (소수점 올림)
+      const now = new Date();
+      const diffDays = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+
+      // 1초 동안 100 → diffDays 애니메이션
+      const start = 100, end = diffDays, duration = 1500;
+      const t0 = performance.now();
+      function animate(nowTime) {
+        const t = Math.min((nowTime - t0) / duration, 1);
+        const current = Math.floor(start + (end - start) * t);
+        dayElem.textContent = current;
+        if (t < 1) requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+
+      // 실시간 시간 카운트다운 (HH:MM:SS)
+      function updateTime() {
+        const now2 = new Date();
+        let rem = targetTime - now2;
+        if (rem < 0) rem = 0;
+        const h = Math.floor(rem / (1000 * 60 * 60));
+        const m = Math.floor((rem % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((rem % (1000 * 60)) / 1000);
+        timeElem.textContent = `${h}시간 ${m}분 ${s}초`;
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+
+    window.addEventListener('load', initDday);
   </script>
 </body>
 </html>
