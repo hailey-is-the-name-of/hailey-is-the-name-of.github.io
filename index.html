@@ -165,6 +165,14 @@
         border-radius:0 0 10px 10px;
       }
     }
+.popup {
+  display: none;
+  /* 기존 opacity, transform 대신 display로 토글 */
+}
+.popup.show {
+  display: block;
+  /* 나머지 스타일은 그대로 */
+}
 
     /* --- 일정/카드 등 기타 기존 스타일(필요부분만 유지) -------------------- */
     .schedule{
