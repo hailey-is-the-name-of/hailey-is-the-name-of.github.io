@@ -244,6 +244,29 @@
     @media (max-width: 600px) {
       .dday-box { width: 90vw; }
     }
+/* — D-와 숫자 딱 붙이기 — */
+.dday-box .dday-prefix,
+.dday-box .dday-number {
+  display: inline-block;
+  margin: 0;
+  vertical-align: baseline;
+}
+.dday-box .dday-number {
+  /* 필요에 따라 값 조절 */
+  margin-left: -0.2em;
+}
+
+/* — 시간 부분 줄바꿈, 작게 & 밑줄 — */
+.dday-box #ddaytime,
+.dday-box .dday-time {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  line-height: 1.2;
+}
 
   </style>
 </head>
