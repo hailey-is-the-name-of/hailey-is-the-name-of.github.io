@@ -45,16 +45,16 @@
     .heart{color:#015DA9;margin:0 8px;}
 
   /* --- 팝업 컨테이너 --- */
-  #popup-container {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    z-index: 9999;
-  }
+#popup-container {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px; /* 팝업 사이 간격 생김 */
+  z-index: 9999;
+}
 
   /* --- 팝업 공통 스타일 --- */
   .popup {
@@ -89,24 +89,26 @@
     color: #444;
   }
 
-  /* --- 이미지 팝업 --- */
-  .popup.image .img-wrap {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+.popup.image .img-wrap {
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 
-  .popup.image img {
-    width: 68%;
-    border-radius: 10px;
-  }
+.popup.image img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
 
-  .popup.image .btn-col {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-  }
+.popup .btn-col {
+  width: 100%;
+  gap: 6px;
+  margin-top: 0;
+}
+
 
   /* --- 버튼 스타일 --- */
   .popup .link-btn {
@@ -287,31 +289,34 @@
 </head>
 
 <body>
-  <div id="popup-container">
-    <!-- 텍스트 팝업 -->
-
-
-    <div id="popup" class="popup text">
-      <h3>우리 동네는 내가 살린다!<br>지역화폐 사용 챌린지</h3>
-      <p>“이재명의 약속, 지역경제의 숨통!<br>지역화폐로 응원하자”</p>
-      <a href="https://bluenew.life/iamsharp" class="link-btn" target="_blank">자세히 보기</a>
-      <div class="btn-row">
-        <button class="hide-btn" onclick="hideForAWeek()">일주일간 안보기</button>
+<div id="popup-container">
+  <!-- 팝업1: 이미지 팝업 -->
+  <div id="popup" class="popup image">
+    <div class="img-wrap" style="flex-direction: column; align-items: center; gap: 4px;">
+      <a href="https://bluenew.life/you2.jpg" target="_blank">
+        <img src="https://bluenew.life/you2.jpg" alt="팝업 이미지" style="width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 4px;">
+      </a>
+      <div class="btn-col" style="width: 100%; gap: 6px;">
         <button class="close-btn" onclick="closePopup()">닫기</button>
-      </div>
-    </div>
-
-    <!-- 이미지 팝업 -->
-    <div id="popup2" class="popup image">
-      <div class="img-wrap">
-        <img src="you2.jpg" alt="챌린지 이미지">
-        <div class="btn-col">
-          <button class="close-btn" onclick="closePopup2()">닫기</button>
-          <button class="hide-btn" onclick="hidePopup2ForADay()">하루 안보기</button>
-        </div>
+        <button class="hide-btn" onclick="hideForAWeek()">일주일간 안보기</button>
       </div>
     </div>
   </div>
+
+  <!-- 팝업2: 이미지 팝업 -->
+  <div id="popup2" class="popup image">
+    <div class="img-wrap" style="flex-direction: column; align-items: center; gap: 4px;">
+      <a href="https://bluenew.life/thumb2.jpg" target="_blank">
+        <img src="https://bluenew.life/thumb2.jpg" alt="챌린지 이미지" style="width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 4px;">
+      </a>
+      <div class="btn-col" style="width: 100%; gap: 6px;">
+        <button class="close-btn" onclick="closePopup2()">닫기</button>
+        <button class="hide-btn" onclick="hidePopup2ForADay()">하루 안보기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- ====== 여기에 D-Day 박스 추가 ====== -->
   <div class="dday-box">
     <span class="dday-prefix">6월 3일 대통령선거까지 남은 시간 </span>
@@ -366,18 +371,20 @@
       return !t || Date.now() > +t;
     };
 
-    const showPopups = () => {
-      if (shouldShow(POPUP_KEY))  document.getElementById('popup').classList.add('show');
-      if (shouldShow(POPUP2_KEY)) document.getElementById('popup2').classList.add('show');
-    };
 
+    const showPopups = () => {
+  if (shouldShow(POPUP_KEY))  document.getElementById('popup').classList.add('show');
+  if (shouldShow(POPUP2_KEY)) document.getElementById('popup2').classList.add('show');
+};
     const closePopup  = () => document.getElementById('popup').classList.remove('show');
     const closePopup2 = () => document.getElementById('popup2').classList.remove('show');
 
     const hideForAWeek       = () => { localStorage.setItem(POPUP_KEY , Date.now()+7*24*60*60*1000); closePopup(); };
     const hidePopup2ForADay  = () => { localStorage.setItem(POPUP2_KEY, Date.now()+24*60*60*1000);  closePopup2(); };
 
-    window.addEventListener('load', () => setTimeout(showPopups, 120));
+window.addEventListener('load', () => setTimeout(showPopups, 120));
+
+
   </script>
 
   <!-- ====== 일정 API 호출 ====== -->
