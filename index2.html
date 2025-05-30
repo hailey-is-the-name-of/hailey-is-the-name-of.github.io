@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta name="naver-site-verification" content="954d565d94a04b3e45764c630db72b819d5684bd">
+  <meta name="description" content="사전투표는 5월 29일(목)부터 5월 30일(금)! 더불어민주당 대구시당 알리미, 대구시당 정보, 대구시당 일정, 대선, 이재명, 더불어민주당, 대통령선거, 공지, 알림">
+  <meta property="og:title" content="더불어민주당 대구시당 알리미">
+  <meta property="og:image" content="https://bluenew.life/thumb2.jpg" />
+  <meta property="og:description" content="사전투표는 5월 29일(목)부터 5월 30일(금)">
+  <meta property="og:url" content="https://bluenew.life/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 2. 페이스북 외 기타에서 link rel 인식용 -->
+  <link rel="image_src" href="https://bluenew.life/thumb2.jpg" />
+
+  <!-- 3. Twitter 카드 (트위터 뿐 아니라 일부 앱 호환) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="♥대구시당 알리미♥" />
+  <meta name="twitter:description" content="사전투표는 5월 29일(목)부터 5월 30일(금)" />
+  <meta name="twitter:image" content="https://bluenew.life/thumb2.jpg" />
+
+  <!-- 4. 구글 검색 및 schema.org 호환 -->
+  <meta itemprop="name" content="♥대구시당 알리미♥" />
+  <meta itemprop="description" content="사전투표는 5월 29일(목)부터 5월 30일(금)" />
+  <meta itemprop="image" content="https://bluenew.life/thumb2.jpg" />
+
+  <title>♥대구시당 알리미♥</title>
+
+  <style>
+    /* --- 기본 레이아웃 --------------------------------------------------- */
+    body{
+      font-family:'Noto Sans KR',sans-serif;
+      padding:30px;
+      max-width:800px;
+      margin:0 auto;
+      color:#333;
+    }
+    h1{
+      font-size:clamp(1.2rem,4vw,2rem);
+      text-align:center;
+      margin-bottom:30px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .heart{color:#015DA9;margin:0 8px;}
+
+/* 팝업 컨테이너 */
+    #popup-container {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 9999;
+    }
+
+    .popup {
+      width: 300px;
+      max-width: 90vw;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .popup.show {
+      display: flex;
+    }
+
+    .popup img {
+      width: 100%;
+      aspect-ratio: 2 / 3; /* 1:1.5 비율 */
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .btn-row button,
+    .btn-row a {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .vote-btn {
+      background: #015DA9;
+      color: white;
+    }
+
+    .close-btn {
+      background: #ccc;
+      color: #222;
+    }
+
+    /* 모바일 최적화 */
+    @media (max-width: 600px) {
+  #popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 0 16px;
+  }
+
+  .popup {
+    width: 60vw;
+    max-width: 90vw;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .popup img {
+    width: 100%;
+  }
+}
+
+
+    /* --- 일정/카드 등 기타 기존 스타일(필요부분만 유지) -------------------- */
+    .schedule{
+      background:#f5faff;
+      border-left:4px solid #015DA9;
+      border-radius:8px;
+      padding:20px;
+      margin-bottom:40px;
+    }
+    .schedule-header{background:#015DA9;color:#fff;font-weight:700;border-radius:4px;text-align:center;padding:6px 16px;margin:0 auto 8px;}
+    .schedule-date{background:#eaf4ff;color:#015DA9;border-radius:12px;padding:4px 12px;margin:0 auto 18px;width:max-content;font-style:italic;font-size:.9rem;}
+    .schedule-list{list-style:none;margin:0;padding:0;}
+    .schedule-list li{padding:6px 0;border-bottom:1px solid #e0e0e0;font-size:.9rem;}
+    .schedule-list li:last-child{border-bottom:none;}
+    .schedule-list .time{font-weight:700;margin-right:4px;}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:40px;}
+    .card{border:1px solid #ddd;border-radius:12px;padding:20px;text-align:center;font-weight:700;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05);}
+    .card:hover{background:#f3f3f3;}
+    .card a{text-decoration:none;color:#333;display:block;}
+
+    footer{margin-top:40px;text-align:center;}
+    footer img{width:150px;height:auto;}
+
+
+    .dday-box {
+      background-color: #015DA9;
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+        /* 추가: 본문과 같은 최대 너비 및 가운데 정렬 */
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto 40px;
+  box-sizing: border-box;
+    }
+
+    /* 모바일 대응: 화면 폭 90vw로 */
+@media (max-width: 600px) {
+  .dday-box {
+    max-width: 90vw;
+    width: 90vw;
+    margin-bottom: 20px;
+  }
+  .dday-box .dday-time {
+  /* flex-basis: 100%; */
+  /* 텍스트 중앙 정렬 */
+  text-align: center;
+  /* 위쪽 여유 공간 */
+  margin-top: 4px;
+}
+
+    .dday-prefix,
+    .dday-number,
+    .dday-suffix {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .dday-time {
+      font-size: 0.7rem;
+    }
+    @media (max-width: 600px) {
+      .dday-box { width: 90vw; }
+    }
+/* — D-와 숫자 딱 붙이기 — */
+.dday-box .dday-prefix,
+.dday-box .dday-number {
+  display: inline-block;
+  margin: 0;
+  vertical-align: baseline;
+}
+.dday-box .dday-number {
+  /* 필요에 따라 값 조절 */
+  margin-left: 0.1em;
+}
+
+/* — 시간 부분 줄바꿈, 작게 & 밑줄 — */
+.dday-box #ddaytime,
+.dday-box .dday-time {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  line-height: 1.2;
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="popup-container">
+    <div id="popup" class="popup">
+      <img id="popupImage" src="" alt="랜덤 이미지" />
+      <div class="btn-row">
+        <a class="vote-btn" href="https://si.nec.go.kr/" target="_blank">나의 투표소 찾기</a>
+      </div>
+      <div class="btn-row">
+        <button class="close-btn" onclick="closePopup()">닫기</button>
+        <button class="vote-btn" onclick="hideForADay()">하루동안 안보기</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====== 여기에 D-Day 박스 추가 ====== -->
+  <div class="dday-box">
+    <span class="dday-prefix">6월 3일 대통령선거까지 남은 시간 </span>
+    <span class="dday-number" id="ddayNumber">100</span>
+    <span class="dday-suffix">일</span>
+    <!-- <span id="ddaytime"> 투표종료까지 남은시간 : </span>
+    <span class="dday-time" id="ddayTime">00시간 00분 00초</span> -->
+  </div>
+
+
+  <h1><span class="heart">♥♥♥</span>대구시당 알리미<span class="heart">♥♥♥</span></h1>
+
+  <!-- ====== 유세 일정 ====== -->
+  <div class="schedule">
+    <div class="schedule-header">&lt; 대구시당 1호차 &gt;</div>
+    <div class="schedule-date">로딩 중…</div>
+    <ul class="schedule-list"></ul>
+  </div>
+
+  <!-- ====== 링크 카드 ====== -->
+  <div class="grid">
+        <div class="card"><a href="https://bluenew.life/2ndlie" target="_blank">2차 토론회 후보들의 거짓말 </a></div>
+
+    <div class="card"><a href="https://bluenew.life/policy" target="_blank">이재명후보 정책안내 페이지</a></div>
+    <div class="card"><a href="https://bluenew.life/card" target="_blank">#이재명 말모이</a></div>
+    <div class="card"><a href="https://poll.bluenew.life" target="_blank">여론조사 추이 (beta)</a></div>
+    <div class="card"><a href="https://bluenew.life/dg9" target="_blank">대구 9개 구·군 세부공약</a></div>
+    <div class="card"><a href="https://bluenew.life/ai" target="_blank">AI 산업으로 다시 도약하는 대구</a></div>
+    <div class="card"><a href="https://bluenew.life/thisdaegu" target="_blank">이런 대구를 만들겠습니다</a></div>
+    <div class="card"><a href="https://bluenew.life/compare" target="_blank">19대 · 20대 대선 득표율</a></div>
+    <div class="card"><a href="https://bluenew.life/stats.html" target="_blank">19대 · 20대 대선 구 · 군별 상세</a></div>
+    <div class="card"><a href="https://bluenew.life/liekim" target="_blank">국민의힘 김문수 거짓말 시리즈</a></div>
+    <div class="card"><a href="https://bluenew.life/lielee" target="_blank">개혁신당 이준석 거짓말 시리즈</a></div>
+    <div class="card"><a href="https://bluenew.life/right" target="_blank">맞는 말 시리즈</a></div>
+    <div class="card"><a href="https://bluenew.life/lies" target="_blank">거짓말 시리즈</a></div>
+    <div class="card"><a href="https://bluenew.life/truth" target="_blank">대구 팩트체크</a></div>
+  </div>
+
+  <footer>
+    <a href="https://theminjoodaegu.co.kr/" target="_blank">
+      <img src="150_png_dgsd_logo.png" alt="더불어민주당 대구광역시당 로고">
+    </a>
+  </footer>
+
+  <!-- ====== 팝업 제어 스크립트 ====== -->
+  <script>
+    const POPUP_KEY = 'popup_hide_until';
+
+    const images = [
+      'dok1.jpg',
+      'dok2.jpg',
+      'dok3.jpg',
+      'dok4.jpg'
+    ];
+
+    function shouldShowPopup() {
+      const hideUntil = localStorage.getItem(POPUP_KEY);
+      return !hideUntil || Date.now() > parseInt(hideUntil, 10);
+    }
+
+    function showPopup() {
+      if (!shouldShowPopup()) return;
+
+      const randomImage = images[Math.floor(Math.random() * images.length)];
+      document.getElementById('popupImage').src = randomImage;
+      document.getElementById('popup').classList.add('show');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('show');
+    }
+
+    function hideForADay() {
+      const tomorrow = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem(POPUP_KEY, tomorrow.toString());
+      closePopup();
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(showPopup, 120);
+    });
+  </script>
+
+
+  <!-- ====== 일정 API 호출 ====== -->
+  <script>
+    (async () => {
+      const API_URL = "https://api.bluenew.life/api/schedule";
+      try{
+        const res = await fetch(API_URL,{cache:"no-store"});
+        if(!res.ok) throw new Error(res.status);
+        const data = await res.json();
+
+        document.querySelector(".schedule-header").innerHTML = `&lt; ${data.title} &gt;`;
+        document.querySelector(".schedule-date").textContent = formatDate(data.date);
+
+        const ul = document.querySelector(".schedule-list");
+        ul.innerHTML = "";
+        data.items.forEach(({time,text})=>{
+          const li = document.createElement("li");
+          li.innerHTML = `<span class="time">${time}</span>${text}`;
+          ul.appendChild(li);
+        });
+      }catch(e){console.error("일정 로드 실패:",e);}
+
+      function formatDate(str){
+        if(!str) return "";
+        const dt   = new Date(str+"T00:00:00");
+        const yoil = "일월화수목금토"[dt.getDay()];
+        return `${dt.getMonth()+1}월 ${dt.getDate()}일(${yoil}) 유세 일정`;
+      }
+    })();
+  </script>
+
+  <!-- ====== D-Day 애니메이션 & 실시간 카운트다운 ====== -->
+  <script>
+    function initDday() {
+      // 목표일 설정 (2025-06-03 00:00:00) 및 타임업 (2025-06-03 20:00:00)
+      const targetDate = new Date('2025-06-03T00:00:00');
+      const targetTime = new Date('2025-06-03T20:00:00');
+
+      const dayElem = document.getElementById('ddayNumber');
+      const timeElem = document.getElementById('ddayTime');
+
+      // 남은 일수 계산 (소수점 올림)
+      const now = new Date();
+      const diffDays = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+
+      // 1초 동안 100 → diffDays 애니메이션
+      const start = 100, end = diffDays, duration = 1500;
+      const t0 = performance.now();
+      function animate(nowTime) {
+        const t = Math.min((nowTime - t0) / duration, 1);
+        const current = Math.floor(start + (end - start) * t);
+        dayElem.textContent = current;
+        if (t < 1) requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+
+      // 실시간 시간 카운트다운 (HH:MM:SS)
+      function updateTime() {
+        const now2 = new Date();
+        let rem = targetTime - now2;
+        if (rem < 0) rem = 0;
+        const h = Math.floor(rem / (1000 * 60 * 60));
+        const m = Math.floor((rem % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((rem % (1000 * 60)) / 1000);
+        timeElem.textContent = `${h}시간 ${m}분 ${s}초`;
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+
+    window.addEventListener('load', initDday);
+  </script>
+</body>
+</html>
