@@ -71,9 +71,8 @@
     line-height: 1.5;
   }
 
-  .popup.show {
-    opacity: 1;
-    transform: translateY(0);
+.popup.show {
+  display: block !important; /* ← 이거 추가해서 강제 적용 */
   }
 
   /* --- 텍스트 팝업 --- */
@@ -233,6 +232,8 @@
   box-sizing: border-box;
     }
 
+#popup1 { z-index: 9999; }
+#popup2 { z-index: 9998; }
 
     /* 모바일 대응: 화면 폭 90vw로 */
 @media (max-width: 600px) {
