@@ -108,7 +108,9 @@
     }
 
     /* 모바일 최적화 */
-    @media (max-width: 600px) {
+/* 모바일 최적화 */
+/* 모바일 최적화 */
+@media (max-width: 600px) {
   #popup-container {
     position: fixed;
     top: 0;
@@ -121,6 +123,7 @@
     align-items: center;
     z-index: 9999;
     padding: 0 16px;
+    pointer-events: none; /* 이 줄은 유지해도 popup에서 auto 해제되면 작동 */
   }
 
   .popup {
@@ -128,14 +131,15 @@
     max-width: 90vw;
     border-radius: 12px;
     padding: 16px;
-      pointer-events: auto
-    }
+    pointer-events: auto; /* ✅ 세미콜론 추가 */
+    position: relative; /* ✅ 클릭 가능한 위 계층 보장 */
+    z-index: 10000;
+  }
 
   .popup img {
     width: 100%;
   }
 }
-
 
     /* --- 일정/카드 등 기타 기존 스타일(필요부분만 유지) -------------------- */
     .schedule{
